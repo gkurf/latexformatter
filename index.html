@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,15 +37,15 @@
     }
 
     .panel {
-  height: auto;
-  padding: 16px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-}
+      height: auto;
+      padding: 16px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+    }
 
     .panel-header {
       font-size: 14px;
@@ -125,8 +126,13 @@
     }
 
     @keyframes shimmer {
-      0% { background-color: #00E0A6; }
-      100% { background-color: #007AFF; }
+      0% {
+        background-color: #00E0A6;
+      }
+
+      100% {
+        background-color: #007AFF;
+      }
     }
 
     .copy-button {
@@ -239,7 +245,8 @@
         <div class="panel-header"></div>
         <div class="about-section">
           <h2>About</h2>
-          <p>This formatter tool is intended to convert plaintext algorithms into LaTeX format. It is ideal for Gradescope
+          <p>This formatter tool is intended to convert plaintext algorithms into LaTeX format. It is ideal for
+            Gradescope
             assignments with LaTeX enabled or other similar platforms.</p>
         </div>
       </div>
@@ -461,9 +468,9 @@
           newPosition = start + symbol.indexOf('{}') + 1;
         } else {
           const selectedText = text.substring(start, end);
-          rawInput.value = text.substring(0, start) + 
-                          symbol.replace('{}', '{' + selectedText + '}') + 
-                          text.substring(end);
+          rawInput.value = text.substring(0, start) +
+            symbol.replace('{}', '{' + selectedText + '}') +
+            text.substring(end);
           newPosition = start + symbol.indexOf('{}') + selectedText.length + 2;
         }
       } else if (symbol.includes('()')) {
@@ -472,9 +479,9 @@
           newPosition = start + symbol.indexOf('()') + 1;
         } else {
           const selectedText = text.substring(start, end);
-          rawInput.value = text.substring(0, start) + 
-                          symbol.replace('()', '(' + selectedText + ')') + 
-                          text.substring(end);
+          rawInput.value = text.substring(0, start) +
+            symbol.replace('()', '(' + selectedText + ')') +
+            text.substring(end);
           newPosition = start + symbol.indexOf('()') + selectedText.length + 2;
         }
       } else if (symbol.includes('\\{\\}')) {
@@ -483,9 +490,9 @@
           newPosition = start + symbol.indexOf('\\{\\}') + 2;
         } else {
           const selectedText = text.substring(start, end);
-          rawInput.value = text.substring(0, start) + 
-                          symbol.replace('\\{\\}', '\\{' + selectedText + '\\}') + 
-                          text.substring(end);
+          rawInput.value = text.substring(0, start) +
+            symbol.replace('\\{\\}', '\\{' + selectedText + '\\}') +
+            text.substring(end);
           newPosition = start + symbol.indexOf('\\{\\}') + selectedText.length + 4;
         }
       } else {
@@ -541,8 +548,8 @@
         event.preventDefault();
         const start = rawInput.selectionStart;
         const end = rawInput.selectionEnd;
-        rawInput.value = rawInput.value.substring(0, start) + '\t' + 
-                        rawInput.value.substring(end);
+        rawInput.value = rawInput.value.substring(0, start) + '\t' +
+          rawInput.value.substring(end);
         rawInput.selectionStart = rawInput.selectionEnd = start + 1;
         updateOutput();
       } else if (event.key === 'Enter') {
@@ -573,11 +580,28 @@
     lineNumbersCheckbox.addEventListener('change', updateOutput);
 
     // Initialize the page
-    window.onload = function() {
+    window.onload = function () {
+      const rawInput = document.getElementById('raw-input');
+      const sampleText = `algorithm Example(n:int)
+    for i from 1 to n do
+        if i^2 >= 25 then
+            return False
+        end if
+      end for
+  return True`;
+
+      // Use localStorage to ensure sample text is shown only on the first visit
+      if (!localStorage.getItem('hasVisited')) {
+        rawInput.value = sampleText;
+        localStorage.setItem('hasVisited', 'true');
+      }
+
+      // Initialize toolbar, buttons, and output updates
       initializeToolbar();
       renderButtons();
       updateOutput();
     };
   </script>
 </body>
+
 </html>
