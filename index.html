@@ -583,12 +583,13 @@
     window.onload = function () {
       const rawInput = document.getElementById('raw-input');
       const sampleText = `algorithm Example(n:int)
-    for i from 1 to n do
-        if i^2 >= 25 then
-            return False
-        end if
-      end for
-  return True`;
+\tfor i from 1 to n do
+\t\tif i^2 >= 25 then
+\t\t\treturn False
+\t\tend if
+\tend for
+\treturn True
+end algorithm`;
 
       // Use localStorage to ensure sample text is shown only on the first visit
       if (!localStorage.getItem('hasVisited')) {
