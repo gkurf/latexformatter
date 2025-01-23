@@ -55,6 +55,7 @@ const TOOLBAR_SECTIONS = [
             { symbol: '\\textbf{}', display: '\\textbf{Bold}' },
             { symbol: '\\underline{}', display: '\\underline{Underline}' },
             { symbol: '\\{\\}', display: '\\{\\}' }
+            { symbol: '\\left(\\right)', display: '\\left(\\right)' }
         ]
     }
 ];
@@ -63,6 +64,7 @@ const CURSOR_PLACEMENT_RULES = [
     { open: '\\left\\vert{', close: '}\\right\\vert' },
     { open: '\\left\\lfloor{', close: '}\\right\\rfloor' },
     { open: '\\left\\lceil{', close: '}\\right\\rceil' },
+    { open: '\\left(', close: '}\\right)' },
     { open: '{', close: '}{}' },
     { open: '{', close: '}' },
     { open: '(', close: ')' },
