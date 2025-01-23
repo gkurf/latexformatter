@@ -5,227 +5,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
-  <title>LaTeX Algorithm Formatter</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, sans-serif;
-      background: #f5f5f5;
-      color: #333;
-    }
-
-    .title-bar {
-      background: #007AFF;
-      color: white;
-      padding: 16px;
-      text-align: center;
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .panel-wrapper {
-      margin: 20px;
-    }
-
-    .container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      width: 100%;
-    }
-
-    .panel {
-      height: auto;
-      padding: 16px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .panel-header {
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 8px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    textarea {
-      flex-grow: 1;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 16px;
-      font-family: monospace;
-      padding: 12px;
-      box-sizing: border-box;
-      resize: none;
-      background: #fafafa;
-      line-height: 1.4;
-      margin-bottom: 16px;
-      tab-size: 4;
-      -moz-tab-size: 4;
-      height: 300px;
-    }
-
-    textarea:focus {
-      outline: 2px solid #007AFF;
-    }
-
-    .toolbar {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      flex-grow: 0;
-      overflow-y: auto;
-    }
-
-    fieldset {
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 8px;
-      margin: 0;
-    }
-
-    legend {
-      font-size: 14px;
-      font-weight: bold;
-      color: #333;
-      padding: 0 8px;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
-    }
-
-    .tool-button {
-      padding: 4px 8px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      background: white;
-      cursor: pointer;
-      font-size: 14px;
-      transition: all 0.2s;
-      min-width: 40px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .tool-button:hover {
-      background: #f0f0f0;
-      border-color: #bbb;
-    }
-
-    @keyframes shimmer {
-      0% {
-        background-color: #00E0A6;
-      }
-
-      100% {
-        background-color: #007AFF;
-      }
-    }
-
-    .copy-button {
-      padding: 8px 12px;
-      background: #007AFF;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: all 0.2s;
-    }
-
-    .copy-button:hover {
-      background: #005BBB;
-    }
-
-    .copy-button.flash {
-      animation: shimmer 1s ease-in-out;
-    }
-
-    .preview-area {
-      flex: 1;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 16px;
-      padding: 12px;
-      box-sizing: border-box;
-      background: #fafafa;
-      overflow-y: auto;
-      margin-bottom: 16px;
-      white-space: pre;
-      line-height: 1.4;
-      tab-size: 4;
-      -moz-tab-size: 4;
-    }
-
-    .preview-area>div {
-      margin: 0;
-      padding: 0;
-      line-height: 1.4;
-    }
-
-    .katex {
-      font-size: 1em !important;
-      vertical-align: baseline;
-    }
-
-    .katex-display {
-      display: inline;
-      margin: 0;
-      text-align: left;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .preview-area>p {
-      margin: 0.5em 0;
-    }
-
-    .output-toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 8px;
-    }
-
-    .output-toolbar button {
-      margin-left: auto;
-    }
-
-    .full-width-panel {
-      grid-column: span 2;
-      width: 100%;
-    }
-
-    .about-section h2 {
-      margin-top: 0;
-      padding-top: 0;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
+  <title>Gradescope LaTeX Formatter</title>
 </head>
 
 <body>
-  <div class="title-bar">LaTeX Algorithm Formatter</div>
+  <div class="title-bar">Gradescope LaTeX Formatter</div>
 
   <div class="panel-wrapper">
     <div class="container">
       <div class="panel">
         <div class="panel-header">Plain Text Input</div>
-        <textarea id="raw-input" placeholder="Type your algorithm or LaTeX content here..."></textarea>
+        <textarea id="raw-input" placeholder="Type your equation or algorithm here..."></textarea>
         <div id="toolbar" class="toolbar">
           <!-- Toolbar content will be dynamically generated -->
         </div>
@@ -236,7 +27,16 @@
         <div id="preview" class="preview-area"></div>
         <textarea id="output" class="output hidden"></textarea>
         <div class="output-toolbar">
-          <input type="checkbox" id="line-numbers" checked> Line Numbers
+          <span>
+            <label>
+              <input type="checkbox" id="line-numbers" checked>
+              Line Numbers
+            </label>
+            <label>
+              <input type="checkbox" id="algorithm-auto-format" checked>
+              Algorithm Auto-Format
+            </label>
+          </span>
           <button class="copy-button" onclick="copyToClipboard()">Copy Raw Output to Clipboard</button>
         </div>
       </div>
@@ -245,364 +45,72 @@
         <div class="panel-header"></div>
         <div class="about-section">
           <h2>About</h2>
-          <p>This formatter tool is intended to convert plaintext algorithms into LaTeX format. It is ideal for
-            Gradescope
-            assignments with LaTeX enabled or other similar platforms.</p>
+          <p>This formatter tool converts plaintext equations and algorithms into LaTeX format, specifically designed
+            for Gradescope assignments with LaTeX enabled and similar platforms.</p>
+
+          <h3>Basic Usage</h3>
+          <ul>
+            <li>Type or paste your content in the left panel</li>
+            <li>Use the toolbar buttons below to insert common LaTeX symbols and formatting</li>
+            <li>The right panel shows a live preview of how your content will appear</li>
+            <li>Click on the preview area to see the raw LaTeX code</li>
+            <li>Use the "Copy Raw Output to Clipboard" button to copy the formatted LaTeX</li>
+          </ul>
+
+          <h3>Algorithm Auto-Format Features</h3>
+          <p>When "Algorithm Auto-Format" is enabled, the formatter automatically:</p>
+          <ul>
+            <li>Bolds keywords (<span class="katex-render" id="bold-example"></span>)</li>
+            <li>Formats text elements (<span class="katex-render" id="text-example"></span>)</li>
+            <li>Auto-indents after loop keywords</li>
+          </ul>
+
+          <h4>Example Algorithm</h4>
+          <p>Below is an example of a BubbleSort algorithm shown as typed in plain text vs. its formatted output:</p>
+          <div class="algorithm-container">
+            <div class="algorithm-box">
+              <div class="algorithm-title">Plain Text Input</div>
+              <pre><code>algorithm BubbleSort(A:array)
+	let n be the size of A
+	repeat ← True
+	while repeat do
+		repeat ← False
+		for i from 0 to n-2 do
+			if A[i] > A[i+1] then
+				Swap(A, i, i+1)
+				repeat ← True
+			end if
+		end for
+	end while
+	return A
+end algorithm</code></pre>
+            </div>
+            <div class="algorithm-box latex">
+              <div id="latex-render"></div>
+            </div>
+          </div>
+
+          <h3>Additional Features</h3>
+          <ul>
+            <li>Line Numbers: Toggle line numbers in the output
+            <li>Common Substitutions: Automatically converts
+              <ul>
+                <li>
+                  <=,>= to ≤, ≥
+                </li>
+                <li>!= to ≠</li>
+                <li>True, False to <span class="katex-render" id="logic-example"></span></li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 
-  <script>
-    // Configuration objects
-    const TOOLBAR_SECTIONS = [
-      {
-        name: 'Text Formatting',
-        buttons: [
-          { symbol: '\\text{}', display: '\\text{Text}' },
-          { symbol: '\\textbf{}', display: '\\textbf{Bold}' },
-          { symbol: '\\underline{}', display: '\\underline{Underline}' }
-        ]
-      },
-      {
-        name: 'Operators',
-        buttons: [
-          { symbol: '\\leftarrow', display: '\\leftarrow' },
-          { symbol: '\\times', display: '\\times' },
-          { symbol: '\\sin()', display: '\\sin()' },
-          { symbol: '\\cos()', display: '\\cos()' },
-          { symbol: '\\tan()', display: '\\tan()' },
-          { symbol: '\\log()', display: '\\log()' },
-          { symbol: '\\ln()', display: '\\ln()' },
-          { symbol: '\\pmod{n}', display: 'a \\pmod{n}' },
-          { symbol: '\\mid', display: 'a \\mid b' },
-          { symbol: '\\equiv', display: '\\equiv' },
-          { symbol: '\\{\\}', display: '\\{\\}' }
-        ]
-      },
-      {
-        name: 'Symbols',
-        buttons: [
-          { symbol: '\\pi', display: '\\pi' },
-          { symbol: '\\phi', display: '\\phi' },
-          { symbol: '\\Omega', display: '\\Omega' },
-          { symbol: '\\Theta', display: '\\Theta' },
-          { symbol: '\\mathcal{O}', display: '\\mathcal{O}' },
-          { symbol: '\\mathcal{F}', display: '\\mathcal{F}' }
-        ]
-      },
-      {
-        name: 'Sets/Logic',
-        buttons: [
-          { symbol: '\\mathbb{N}', display: '\\mathbb{N}' },
-          { symbol: '\\mathbb{Z}', display: '\\mathbb{Z}' },
-          { symbol: '\\mathbb{Z}^+', display: '\\mathbb{Z}^+' },
-          { symbol: '\\mathbb{R}', display: '\\mathbb{R}' },
-          { symbol: '\\mathbb{Q}', display: '\\mathbb{Q}' },
-          { symbol: '\\in', display: '\\in' },
-          { symbol: '\\subset', display: '\\subset' },
-          { symbol: '\\cap', display: '\\cap' },
-          { symbol: '\\cup', display: '\\cup' },
-          { symbol: '\\exists', display: '\\exists' },
-          { symbol: '\\forall', display: '\\forall' },
-          { symbol: '\\implies', display: '\\implies' }
-        ]
-      }
-    ];
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script type="text/javascript" src="functions.js"></script>
 
-    const TEXT_SUBSTITUTIONS = [
-      { pattern: /algorithm (\w+)\(/g, replacement: '\\textbf{algorithm } \\text{$1}(' },
-      { pattern: /Algorithm (\w+)\(/g, replacement: '\\textbf{Algorithm } \\text{$1}(' },
-      { pattern: /end algorithm/g, replacement: '\\textbf{end algorithm}' },
-      { pattern: /end Algorithm/g, replacement: '\\textbf{end Algorithm}' },
-      { pattern: /if /g, replacement: '\\textbf{if }' },
-      { pattern: / then/g, replacement: '\\textbf{ then}' },
-      { pattern: /end if/g, replacement: '\\textbf{end if}' },
-      { pattern: /for /g, replacement: '\\textbf{for }' },
-      { pattern: /end for/g, replacement: '\\textbf{end for}' },
-      { pattern: / from /g, replacement: '\\text{ from }' },
-      { pattern: / to /g, replacement: '\\text{ to }' },
-      { pattern: / by dividing by /g, replacement: '\\text{ by dividing by }' },
-      { pattern: / by multiplying by /g, replacement: '\\text{ by multiplying by }' },
-      { pattern: / by /g, replacement: '\\text{ by }' },
-      { pattern: /while /g, replacement: '\\textbf{while }' },
-      { pattern: / do/g, replacement: '\\textbf{ do}' },
-      { pattern: /end while/g, replacement: '\\textbf{end while}' },
-      { pattern: /let /g, replacement: '\\text{let }' },
-      { pattern: / be the size of /g, replacement: '\\text{ be the size of }' },
-      { pattern: /array/g, replacement: '\\text{array}' },
-      { pattern: /True/g, replacement: '\\text{True}' },
-      { pattern: /False/g, replacement: '\\text{False}' },
-      { pattern: /return /g, replacement: '\\textbf{return }' },
-      { pattern: /\t/g, replacement: '\\quad ' },
-      { pattern: /<=/g, replacement: '\\leq' },
-      { pattern: />=/g, replacement: '\\geq' },
-      { pattern: /!=/g, replacement: '\\neq' }
-    ];
-
-    const INDENT_TRIGGERS = [
-      " do",
-      "algorithm ",
-      "Algorithm ",
-      " then"
-    ];
-
-    // DOM elements
-    const preview = document.getElementById('preview');
-    const output = document.getElementById('output');
-    const rawInput = document.getElementById('raw-input');
-    const lineNumbersCheckbox = document.getElementById('line-numbers');
-    const toolbar = document.getElementById('toolbar');
-    let isEditing = false;
-
-    // Initialize toolbar
-    function initializeToolbar() {
-      TOOLBAR_SECTIONS.forEach(section => {
-        const fieldset = document.createElement('fieldset');
-        const legend = document.createElement('legend');
-        legend.textContent = section.name;
-        const buttonGroup = document.createElement('div');
-        buttonGroup.className = 'button-group';
-
-        section.buttons.forEach(button => {
-          const buttonElement = document.createElement('button');
-          buttonElement.className = 'tool-button';
-          buttonElement.onclick = () => insertSymbol(button.symbol);
-          buttonElement.textContent = button.display;
-          buttonGroup.appendChild(buttonElement);
-        });
-
-        fieldset.appendChild(legend);
-        fieldset.appendChild(buttonGroup);
-        toolbar.appendChild(fieldset);
-      });
-    }
-
-    // Text processing functions
-    function getIndentation(line) {
-      const match = line.match(/^(\t*)/);
-      return match ? match[1] : '';
-    }
-
-    function shouldAddIndent(line) {
-      return INDENT_TRIGGERS.some(trigger => line.trim().includes(trigger));
-    }
-
-    function calculateNewIndentation(currentLine) {
-      let indentation = getIndentation(currentLine);
-      if (shouldAddIndent(currentLine)) {
-        indentation += '\t';
-      }
-      return indentation;
-    }
-
-    function formatText(content) {
-      let formattedContent = content;
-
-      // Apply all text substitutions
-      TEXT_SUBSTITUTIONS.forEach(({ pattern, replacement }) => {
-        formattedContent = formattedContent.replace(pattern, replacement);
-      });
-
-      const lines = formattedContent.split('\n');
-      return lineNumbersCheckbox.checked
-        ? lines.map((line, index) => `$$\\text{${index + 1}.}\\ ${line}$$`).join('\n')
-        : lines.map(line => `$$${line}$$`).join('\n');
-    }
-
-    // UI interaction functions
-    function processInput() {
-      return formatText(rawInput.value);
-    }
-
-    function renderKaTeX(text) {
-      try {
-        const lines = text.split('\n');
-        const processedLines = lines.map(line => {
-          if (line.startsWith('$$') && line.endsWith('$$')) {
-            const math = line.slice(2, -2);
-            return `<div>${katex.renderToString(math, {
-              displayMode: false,
-              throwOnError: false,
-              fontSize: '1em',
-            })}</div>`;
-          }
-          return `<div>${line}</div>`;
-        });
-        preview.innerHTML = processedLines.join('');
-      } catch (e) {
-        preview.textContent = text;
-        console.error('KaTeX rendering error:', e);
-      }
-    }
-
-    function updateOutput() {
-      const processedText = processInput();
-      output.value = processedText;
-      renderKaTeX(processedText);
-    }
-
-    function switchToEdit() {
-      isEditing = true;
-      preview.classList.add('hidden');
-      output.classList.remove('hidden');
-      output.focus();
-    }
-
-    function switchToPreview() {
-      isEditing = false;
-      preview.classList.remove('hidden');
-      output.classList.add('hidden');
-      renderKaTeX(output.value);
-    }
-
-    function insertSymbol(symbol) {
-      const start = rawInput.selectionStart;
-      const end = rawInput.selectionEnd;
-      const text = rawInput.value;
-      let newPosition;
-
-      if (symbol.includes('{}')) {
-        if (start === end) {
-          rawInput.value = text.substring(0, start) + symbol + text.substring(end);
-          newPosition = start + symbol.indexOf('{}') + 1;
-        } else {
-          const selectedText = text.substring(start, end);
-          rawInput.value = text.substring(0, start) +
-            symbol.replace('{}', '{' + selectedText + '}') +
-            text.substring(end);
-          newPosition = start + symbol.indexOf('{}') + selectedText.length + 2;
-        }
-      } else if (symbol.includes('()')) {
-        if (start === end) {
-          rawInput.value = text.substring(0, start) + symbol + text.substring(end);
-          newPosition = start + symbol.indexOf('()') + 1;
-        } else {
-          const selectedText = text.substring(start, end);
-          rawInput.value = text.substring(0, start) +
-            symbol.replace('()', '(' + selectedText + ')') +
-            text.substring(end);
-          newPosition = start + symbol.indexOf('()') + selectedText.length + 2;
-        }
-      } else if (symbol.includes('\\{\\}')) {
-        if (start === end) {
-          rawInput.value = text.substring(0, start) + symbol + text.substring(end);
-          newPosition = start + symbol.indexOf('\\{\\}') + 2;
-        } else {
-          const selectedText = text.substring(start, end);
-          rawInput.value = text.substring(0, start) +
-            symbol.replace('\\{\\}', '\\{' + selectedText + '\\}') +
-            text.substring(end);
-          newPosition = start + symbol.indexOf('\\{\\}') + selectedText.length + 4;
-        }
-      } else {
-        symbol += ' ';
-        rawInput.value = text.substring(0, start) + symbol + text.substring(end);
-        newPosition = start + symbol.length;
-      }
-
-      rawInput.selectionStart = rawInput.selectionEnd = newPosition;
-      rawInput.focus();
-      updateOutput();
-    }
-
-    function copyToClipboard() {
-      const textToCopy = output.value;
-      const copyButton = document.querySelector('.copy-button');
-
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        copyButton.classList.add('flash');
-        setTimeout(() => {
-          copyButton.classList.remove('flash');
-        }, 1000);
-      }).catch(err => {
-        console.error('Failed to copy:', err);
-        output.select();
-        document.execCommand('copy');
-      });
-    }
-
-    function renderButtons() {
-      const buttons = document.querySelectorAll('.tool-button');
-      buttons.forEach(button => {
-        const latexContent = button.textContent.trim();
-        if (latexContent) {
-          try {
-            button.innerHTML = katex.renderToString(latexContent, {
-              displayMode: false,
-              throwOnError: false,
-              fontSize: '1em'
-            });
-          } catch (e) {
-            console.error('KaTeX rendering error on button:', e);
-          }
-        }
-      });
-    }
-
-    // Event Listeners
-    rawInput.addEventListener('input', updateOutput);
-
-    rawInput.addEventListener('keydown', (event) => {
-      if (event.key === 'Tab') {
-        event.preventDefault();
-        const start = rawInput.selectionStart;
-        const end = rawInput.selectionEnd;
-        rawInput.value = rawInput.value.substring(0, start) + '\t' +
-          rawInput.value.substring(end);
-        rawInput.selectionStart = rawInput.selectionEnd = start + 1;
-        updateOutput();
-      } else if (event.key === 'Enter') {
-        event.preventDefault();
-        const start = rawInput.selectionStart;
-        const text = rawInput.value;
-        const beforeCursor = text.substring(0, start);
-        const afterCursor = text.substring(start);
-        const lines = beforeCursor.split('\n');
-        const currentLine = lines[lines.length - 1];
-        const indentation = calculateNewIndentation(currentLine);
-
-        rawInput.value = beforeCursor + '\n' + indentation + afterCursor;
-        const newPosition = start + 1 + indentation.length;
-        rawInput.selectionStart = rawInput.selectionEnd = newPosition;
-        updateOutput();
-      }
-    });
-
-    preview.addEventListener('click', switchToEdit);
-    output.addEventListener('blur', switchToPreview);
-    output.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        output.blur();
-      }
-    });
-
-    lineNumbersCheckbox.addEventListener('change', updateOutput);
-
-    // Initialize the page
-    window.onload = function () {
-      const rawInput = document.getElementById('raw-input');
-      const sampleText = `algorithm Example(n:int)
-\tfor i from 1 to n do
-\t\tif i^2 >= 25 then
-\t\t\treturn False
-\t\tend if
-\tend for
-\treturn True
-end algorithm`;
-
-      // Use localStorage to ensure sample text is shown only on the first visit
-      if (!localStorage.getItem('hasVisited')) {
-        rawInput.value = sampleText;
-        localStorage.setItem('hasVisited', 'true');
-      }
-
-      // Initialize toolbar, buttons, and output updates
-      initializeToolbar();
-      renderButtons();
-      updateOutput();
-    };
-  </script>
 </body>
 
 </html>

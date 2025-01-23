@@ -1,0 +1,252 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #f5f5f5;
+    color: #333;
+}
+
+.title-bar {
+    background: #007AFF;
+    color: white;
+    padding: 16px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.panel-wrapper {
+    margin: 20px;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+}
+
+.panel {
+    height: auto;
+    padding: 16px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-header {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+textarea {
+    flex-grow: 1;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: monospace;
+    padding: 12px;
+    box-sizing: border-box;
+    resize: none;
+    background: #fafafa;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    tab-size: 4;
+    -moz-tab-size: 4;
+    height: 300px;
+}
+
+textarea:focus {
+    outline: 2px solid #007AFF;
+}
+
+.toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 0;
+    overflow-y: auto;
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    margin: 0;
+}
+
+legend {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    padding: 0 8px;
+}
+
+.button-group {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.tool-button {
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+    min-width: 40px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tool-button:hover {
+    background: #f0f0f0;
+    border-color: #bbb;
+}
+
+@keyframes shimmer {
+    0% {
+        background-color: #00E0A6;
+    }
+
+    100% {
+        background-color: #007AFF;
+    }
+}
+
+.copy-button {
+    padding: 8px 12px;
+    background: #007AFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.copy-button:hover {
+    background: #005BBB;
+}
+
+.copy-button.flash {
+    animation: shimmer 1s ease-in-out;
+}
+
+.preview-area {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 12px;
+    box-sizing: border-box;
+    background: #fafafa;
+    overflow-y: auto;
+    margin-bottom: 16px;
+    white-space: pre;
+    line-height: 1.4;
+    tab-size: 4;
+    -moz-tab-size: 4;
+}
+
+.preview-area>div {
+    margin: 0;
+    padding: 0;
+    line-height: 1.4;
+}
+
+.katex {
+    font-size: 1em !important;
+    vertical-align: baseline;
+}
+
+.katex-display {
+    display: inline;
+    margin: 0;
+    text-align: left;
+}
+
+.hidden {
+    display: none;
+}
+
+.preview-area>p {
+    margin: 0.5em 0;
+}
+
+.output-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.output-toolbar span {
+    display: flex;
+    gap: 16px; /* Spacing between pairs of checkboxes */
+}
+
+.output-toolbar span label {
+    display: flex;
+    align-items: center;
+    gap: 2px; /* Optional: adjusts spacing between checkbox and its label */
+}
+
+.output-toolbar button {
+    margin-left: auto;
+}
+
+.full-width-panel {
+    grid-column: span 2;
+    width: 100%;
+}
+
+.about-section h2 {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.algorithm-container {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+  }
+  
+  .algorithm-box {
+    flex: 1;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fafafa;
+  }
+  
+  .algorithm-box pre {
+    margin: 0;
+    white-space: pre-wrap;
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    tab-size: 4;
+  }
+  
+  .algorithm-box.latex {
+    display: flex;
+    align-items: center;
+  }
+  
+  .algorithm-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #666;
+  }
