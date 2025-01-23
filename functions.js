@@ -13,7 +13,7 @@ const TOOLBAR_SECTIONS = [
             { symbol: '\\sin()', display: '\\sin()' },
             { symbol: '\\cos()', display: '\\cos()' },
             { symbol: '\\tan()', display: '\\tan()' },
-            { symbol: '\\log()', display: '\\log()' },
+            { symbol: '\\log_{n}()', display: '\\log_{n}()' },
             { symbol: '\\ln()', display: '\\ln()' },
             { symbol: '\\pmod{}', display: 'x \\pmod{y}' },
             { symbol: '\\mid', display: 'x \\mid y' }
