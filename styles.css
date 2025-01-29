@@ -216,6 +216,18 @@ legend {
     border: 1px solid #ddd;
     border-radius: 4px;
     background: #fafafa;
+    display: flex;
+    flex-direction: column;
+}
+
+.algorithm-title {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.latex {
+    flex: 1;
 }
 
 .algorithm-box pre {
@@ -230,12 +242,6 @@ legend {
 .algorithm-box.latex {
     display: flex;
     align-items: center;
-}
-
-.algorithm-title {
-    font-weight: bold;
-    margin-bottom: 8px;
-    color: #666;
 }
 
 .delimiter-panel {

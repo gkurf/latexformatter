@@ -1,128 +1,3 @@
-// Configuration objects
-const TOOLBAR_SECTIONS = [
-    {
-        name: 'Symbols',
-        buttons: [
-            { symbol: '\\pi', display: '\\pi' },
-            { symbol: '\\phi', display: '\\phi' },
-            { symbol: '\\Omega', display: '\\Omega' },
-            { symbol: '\\Theta', display: '\\Theta' },
-            { symbol: '\\mathcal{O}', display: '\\mathcal{O}' },
-            { symbol: '\\mathcal{F}', display: '\\mathcal{F}' }
-        ]
-    },
-    {
-        name: 'Logic',
-        buttons: [
-            { symbol: '\\in', display: '\\in' },
-            { symbol: '\\subset', display: '\\subset' },
-            { symbol: '\\exists', display: '\\exists' },
-            { symbol: '\\forall', display: '\\forall' },
-            { symbol: '\\implies', display: '\\implies' },
-            { symbol: '\\equiv', display: '\\equiv' },
-        ]
-    },
-    {
-        name: 'Operators',
-        buttons: [
-            { symbol: '\\leftarrow', display: '\\leftarrow' },
-            { symbol: '\\times', display: '\\times' },
-            { symbol: '\\cdot', display: '\\cdot' },
-            { symbol: '\\frac{}{}', display: '\\frac{x}{y}' },
-            { symbol: '\\mid', display: 'x \\mid y' }
-        ]
-    },
-    {
-        name: 'Functions',
-        buttons: [
-            { symbol: '\\sum_{i=0}^{n}', display: '\\sum_{i=0}^{n}' },
-            { symbol: '\\sin()', display: '\\sin()' },
-            { symbol: '\\cos()', display: '\\cos()' },
-            { symbol: '\\log()', display: '\\log()' },
-            { symbol: '\\log_{n}()', display: '\\log_{n}()' },
-            { symbol: '\\pmod{}', display: 'x \\pmod{y}' },
-        ]
-    },
-    {
-        name: 'Sets',
-        buttons: [
-            { symbol: '\\mathbb{N}', display: '\\mathbb{N}' },
-            { symbol: '\\mathbb{Z}', display: '\\mathbb{Z}' },
-            { symbol: '\\mathbb{Z}^+', display: '\\mathbb{Z}^+' },
-            { symbol: '\\mathbb{R}', display: '\\mathbb{R}' },
-            { symbol: '\\mathbb{Q}', display: '\\mathbb{Q}' },
-        ]
-    },
-    {
-        name: 'Brackets',
-        buttons: [
-            { symbol: '\\{\\}', display: '\\{x\\}' },
-            { symbol: '\\vert{}\\vert', display: '\\vert{x}\\vert' },
-            { symbol: '\\lfloor{}\\rfloor', display: '\\lfloor{x}\\rfloor' },
-            { symbol: '\\lceil{}\\rceil', display: '\\lceil{x}\\rceil' },
-        ]
-    },
-    {
-        name: 'Text Format',
-        buttons: [
-            { symbol: '\\text{}', display: '\\text{Text}' },
-            { symbol: '\\textbf{}', display: '\\textbf{Bold}' },
-            { symbol: '\\underline{}', display: '\\underline{Underline}' },
-        ]
-    }
-];
-
-const CURSOR_PLACEMENT_RULES = [
-    { open: '\\vert{', close: '}\\vert' },
-    { open: '\\lfloor{', close: '}\\rfloor' },
-    { open: '\\lceil{', close: '}\\rceil' },
-    { open: '{', close: '}{}' },
-    { open: '{', close: '}' },
-    { open: '(', close: ')' },
-    { open: '\\{', close: '\\}' }
-];
-
-const ALGORITHM_SUBSTITUTIONS = [
-    { pattern: /algorithm (\w+)\(/g, replacement: '\\textbf{algorithm } \\text{$1}(' },
-    { pattern: /Algorithm (\w+)\(/g, replacement: '\\textbf{Algorithm } \\text{$1}(' },
-    { pattern: /end algorithm/g, replacement: '\\textbf{end algorithm}' },
-    { pattern: /end Algorithm/g, replacement: '\\textbf{end Algorithm}' },
-    { pattern: /if /g, replacement: '\\textbf{if }' },
-    { pattern: / then/g, replacement: '\\textbf{ then}' },
-    { pattern: /end if/g, replacement: '\\textbf{end if}' },
-    { pattern: /for /g, replacement: '\\textbf{for }' },
-    { pattern: /end for/g, replacement: '\\textbf{end for}' },
-    { pattern: / from /g, replacement: '\\text{ from }' },
-    { pattern: / to /g, replacement: '\\text{ to }' },
-    { pattern: / by dividing by /g, replacement: '\\text{ by dividing by }' },
-    { pattern: / by multiplying by /g, replacement: '\\text{ by multiplying by }' },
-    { pattern: / by /g, replacement: '\\text{ by }' },
-    { pattern: /while /g, replacement: '\\textbf{while }' },
-    { pattern: / do/g, replacement: '\\textbf{ do}' },
-    { pattern: /end while/g, replacement: '\\textbf{end while}' },
-    { pattern: /let /g, replacement: '\\text{let }' },
-    { pattern: / be the size of /g, replacement: '\\text{ be the size of }' },
-    { pattern: /array/g, replacement: '\\text{array}' },
-    { pattern: /item/g, replacement: '\\text{item}' },
-    { pattern: /return /g, replacement: '\\textbf{return }' },
-];
-
-const OTHER_SUBSTITUTIONS = [
-    { pattern: /True/g, replacement: '\\text{True}' },
-    { pattern: /False/g, replacement: '\\text{False}' },
-    { pattern: /\t/g, replacement: '\\quad ' },
-    { pattern: /<=/g, replacement: '\\leq' },
-    { pattern: />=/g, replacement: '\\geq' },
-    { pattern: /!=/g, replacement: '\\neq' }
-];
-
-const INDENT_TRIGGERS = [
-    " do",
-    "algorithm ",
-    "Algorithm ",
-    " then"
-];
-
 // DOM elements
 const preview = document.getElementById('preview');
 const output = document.getElementById('output');
@@ -206,11 +81,16 @@ function calculateNewIndentation(currentLine) {
 }
 
 // Modify the formatText function
-function formatText(content) {
+function formatText(content, options = {}) {
     let formattedContent = content;
+    
+    // Get current state of UI controls if not provided in options
+    const algorithmFormat = options.algorithmFormat ?? algorithmAutoTextCheckbox.checked;
+    const lineNumbers = options.lineNumbers ?? lineNumbersCheckbox.checked;
+    const delimiter = options.delimiter ?? Array.from(delimiterRadios).find(radio => radio.checked)?.value ?? 'gradescope';
 
     // Apply algorithm substitutions only if enabled
-    if (algorithmAutoTextCheckbox.checked) {
+    if (algorithmFormat) {
         ALGORITHM_SUBSTITUTIONS.forEach(({ pattern, replacement }) => {
             formattedContent = formattedContent.replace(pattern, replacement);
         });
@@ -222,12 +102,11 @@ function formatText(content) {
     });
 
     const lines = formattedContent.split('\n');
-    const selectedDelimiter = Array.from(delimiterRadios).find(radio => radio.checked).value;
-
+    
     return lines.map((line, index) => {
-        const lineNumber = lineNumbersCheckbox.checked ? `\\text{${index + 1}.}\\ ` : '';
+        const lineNumber = lineNumbers ? `\\text{${index + 1}.}\\ ` : '';
         
-        switch (selectedDelimiter) {
+        switch (delimiter) {
             case 'gradescope':
                 return `$$${lineNumber}${line}$$`;
             case 'single':
@@ -379,35 +258,6 @@ output.addEventListener('keydown', (e) => {
 lineNumbersCheckbox.addEventListener('change', updateOutput);
 algorithmAutoTextCheckbox.addEventListener('change', updateOutput);
 
-document.addEventListener('DOMContentLoaded', () => {
-    katex.render("\\textbf{algorithm}, \\textbf{end algorithm}, \\textbf{if}, \\textbf{then}, \\textbf{end if}, \\textbf{for}, \\textbf{end for}, \\textbf{while}, \\textbf{do}, \\textbf{end while}, \\textbf{return}", document.getElementById("bold-example"), { throwOnError: false });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    katex.render("\\text{let}, \\text{be the size of}, \\text{array}, \\text{from}, \\text{to}, \\text{by}", document.getElementById("text-example"), { throwOnError: false });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    katex.render("\\text{True}, \\text{False}", document.getElementById("logic-example"), { throwOnError: false });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    renderKaTeX(formatText(`algorithm BubbleSort(A:array)
-	let n be the size of A
-	repeat \\leftarrow True
-	while repeat do
-		repeat \\leftarrow False
-		for i from 0 to n-2 do
-			if A[i] > A[i+1] then
-				\\text{Swap}(A, i, i+1)
-				repeat \\leftarrow True
-			end if
-		end for
-	end while
-	return A
-end algorithm`), example)
-  });
-
   delimiterRadios.forEach(radio => {
     radio.addEventListener('change', updateOutput);
 });
@@ -416,6 +266,7 @@ end algorithm`), example)
 window.onload = function () {
     // Initialize toolbar, buttons, and output updates
     initializeToolbar();
+    initializeExamples();
     renderButtons();
     updateOutput();
 };

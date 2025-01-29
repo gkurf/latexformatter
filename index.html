@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <link rel="stylesheet" href="styles.css">
-  <title>Gradescope LaTeX Formatter</title>
+  <title>LaTeX Formatter</title>
 </head>
 
 <body>
-  <div class="title-bar">Gradescope LaTeX Formatter</div>
+  <div class="title-bar">LaTeX Formatter</div>
 
   <div class="panel-wrapper">
     <div class="container">
@@ -80,51 +80,19 @@
             <li>Click on the preview area to see the raw LaTeX code</li>
             <li>Use the "Copy Raw Output to Clipboard" button to copy the formatted LaTeX</li>
           </ul>
+          <div id="bigO-examples"></div>
 
           <h3>Algorithm Auto-Format Features</h3>
-          <p>When "Algorithm Auto-Format" is enabled, the formatter automatically:</p>
-          <ul>
-            <li>Bolds keywords (<span class="katex-render" id="bold-example"></span>)</li>
-            <li>Formats text elements (<span class="katex-render" id="text-example"></span>)</li>
-            <li>Auto-indents after loop keywords</li>
-          </ul>
-
-          <h4>Example Algorithm</h4>
-          <p>Below is an example of a BubbleSort algorithm shown as typed in plain text vs. its formatted output:</p>
-          <div class="algorithm-container">
-            <div class="algorithm-box">
-              <div class="algorithm-title">Plain Text Input</div>
-              <pre><code>algorithm BubbleSort(A:array)
-	let n be the size of A
-	repeat ← True
-	while repeat do
-		repeat ← False
-		for i from 0 to n-2 do
-			if A[i] > A[i+1] then
-				Swap(A, i, i+1)
-				repeat ← True
-			end if
-		end for
-	end while
-	return A
-end algorithm</code></pre>
-            </div>
-            <div class="algorithm-box latex">
-              <div id="latex-render"></div>
-            </div>
-          </div>
+          <p>When "Algorithm Auto-Format" is enabled, the formatter automatically formats different types of keywords:
+          </p>
+          <div id="keywords-examples"></div>
+          <div id="algorithm-examples"></div>
 
           <h3>Additional Features</h3>
           <ul>
-            <li>Line Numbers: Toggle line numbers in the output
+            <li>Line Numbers: Toggle line numbers in the output</li>
             <li>Common Substitutions: Automatically converts
-              <ul>
-                <li>
-                  <=,>= to ≤, ≥
-                </li>
-                <li>!= to ≠</li>
-                <li>True, False to <span class="katex-render" id="logic-example"></span></li>
-              </ul>
+              <div id="substitutions-examples"></div>
             </li>
           </ul>
         </div>
@@ -133,7 +101,9 @@ end algorithm</code></pre>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script type="text/javascript" src="config.js"></script>
   <script type="text/javascript" src="functions.js"></script>
+  <script type="text/javascript" src="examples.js"></script>
 
 </body>
 
