@@ -26,18 +26,42 @@
         <div class="panel-header">Formatted Output</div>
         <div id="preview" class="preview-area"></div>
         <textarea id="output" class="output hidden"></textarea>
-        <div class="output-toolbar">
-          <span>
-            <label>
-              <input type="checkbox" id="line-numbers" checked>
-              Line Numbers
-            </label>
-            <label>
-              <input type="checkbox" id="algorithm-auto-format" checked>
-              Algorithm Auto-Format
-            </label>
-          </span>
-          <button class="copy-button" onclick="copyToClipboard()">Copy Raw Output to Clipboard</button>
+        <div class="delimiter-panel">
+          <fieldset>
+            <legend>Line Delimiters</legend>
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="delimiter" value="gradescope" checked>
+                Gradescope ($$ $$)
+              </label>
+              <label>
+                <input type="radio" name="delimiter" value="single">
+                Single $
+              </label>
+              <label>
+                <input type="radio" name="delimiter" value="none">
+                No $
+              </label>
+            </div>
+          </fieldset>
+        </div>
+        <div class="controls-panel">
+          <fieldset>
+            <legend>Output</legend>
+            <div class="controls-group">
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" id="line-numbers" checked>
+                  Line Numbers
+                </label>
+                <label>
+                  <input type="checkbox" id="algorithm-auto-format" checked>
+                  Algorithm Auto-Format
+                </label>
+              </div>
+              <button class="copy-button" onclick="copyToClipboard()">Copy Raw Output to Clipboard</button>
+            </div>
+          </fieldset>
         </div>
       </div>
 

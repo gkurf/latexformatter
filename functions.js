@@ -1,43 +1,6 @@
 // Configuration objects
 const TOOLBAR_SECTIONS = [
     {
-        name: 'Operators',
-        buttons: [
-            { symbol: '\\leftarrow', display: '\\leftarrow' },
-            { symbol: '\\times', display: '\\times' },
-            { symbol: '\\left\\vert{}\\right\\vert', display: '\\left\\vert{x}\\right\\vert' },
-            { symbol: '\\left\\lfloor{}\\right\\rfloor', display: '\\left\\lfloor{x}\\right\\rfloor' },
-            { symbol: '\\left\\lceil{}\\right\\rceil', display: '\\left\\lceil{x}\\right\\rceil' },
-            { symbol: '\\frac{}{}', display: '\\frac{x}{y}' },
-            { symbol: '\\sum_{i=0}^{n}', display: '\\sum_{i=0}^{n}' },
-            { symbol: '\\sin()', display: '\\sin()' },
-            { symbol: '\\cos()', display: '\\cos()' },
-            { symbol: '\\tan()', display: '\\tan()' },
-            { symbol: '\\log_{n}()', display: '\\log_{n}()' },
-            { symbol: '\\ln()', display: '\\ln()' },
-            { symbol: '\\pmod{}', display: 'x \\pmod{y}' },
-            { symbol: '\\mid', display: 'x \\mid y' }
-        ]
-    },
-    {
-        name: 'Logic/Sets',
-        buttons: [
-            { symbol: '\\in', display: '\\in' },
-            { symbol: '\\subset', display: '\\subset' },
-            { symbol: '\\cap', display: '\\cap' },
-            { symbol: '\\cup', display: '\\cup' },
-            { symbol: '\\exists', display: '\\exists' },
-            { symbol: '\\forall', display: '\\forall' },
-            { symbol: '\\implies', display: '\\implies' },
-            { symbol: '\\equiv', display: '\\equiv' },
-            { symbol: '\\mathbb{N}', display: '\\mathbb{N}' },
-            { symbol: '\\mathbb{Z}', display: '\\mathbb{Z}' },
-            { symbol: '\\mathbb{Z}^+', display: '\\mathbb{Z}^+' },
-            { symbol: '\\mathbb{R}', display: '\\mathbb{R}' },
-            { symbol: '\\mathbb{Q}', display: '\\mathbb{Q}' },
-        ]
-    },
-    {
         name: 'Symbols',
         buttons: [
             { symbol: '\\pi', display: '\\pi' },
@@ -49,22 +12,70 @@ const TOOLBAR_SECTIONS = [
         ]
     },
     {
+        name: 'Logic',
+        buttons: [
+            { symbol: '\\in', display: '\\in' },
+            { symbol: '\\subset', display: '\\subset' },
+            { symbol: '\\exists', display: '\\exists' },
+            { symbol: '\\forall', display: '\\forall' },
+            { symbol: '\\implies', display: '\\implies' },
+            { symbol: '\\equiv', display: '\\equiv' },
+        ]
+    },
+    {
+        name: 'Operators',
+        buttons: [
+            { symbol: '\\leftarrow', display: '\\leftarrow' },
+            { symbol: '\\times', display: '\\times' },
+            { symbol: '\\cdot', display: '\\cdot' },
+            { symbol: '\\frac{}{}', display: '\\frac{x}{y}' },
+            { symbol: '\\mid', display: 'x \\mid y' }
+        ]
+    },
+    {
+        name: 'Functions',
+        buttons: [
+            { symbol: '\\sum_{i=0}^{n}', display: '\\sum_{i=0}^{n}' },
+            { symbol: '\\sin()', display: '\\sin()' },
+            { symbol: '\\cos()', display: '\\cos()' },
+            { symbol: '\\log()', display: '\\log()' },
+            { symbol: '\\log_{n}()', display: '\\log_{n}()' },
+            { symbol: '\\pmod{}', display: 'x \\pmod{y}' },
+        ]
+    },
+    {
+        name: 'Sets',
+        buttons: [
+            { symbol: '\\mathbb{N}', display: '\\mathbb{N}' },
+            { symbol: '\\mathbb{Z}', display: '\\mathbb{Z}' },
+            { symbol: '\\mathbb{Z}^+', display: '\\mathbb{Z}^+' },
+            { symbol: '\\mathbb{R}', display: '\\mathbb{R}' },
+            { symbol: '\\mathbb{Q}', display: '\\mathbb{Q}' },
+        ]
+    },
+    {
+        name: 'Brackets',
+        buttons: [
+            { symbol: '\\{\\}', display: '\\{x\\}' },
+            { symbol: '\\vert{}\\vert', display: '\\vert{x}\\vert' },
+            { symbol: '\\lfloor{}\\rfloor', display: '\\lfloor{x}\\rfloor' },
+            { symbol: '\\lceil{}\\rceil', display: '\\lceil{x}\\rceil' },
+        ]
+    },
+    {
         name: 'Text Format',
         buttons: [
             { symbol: '\\text{}', display: '\\text{Text}' },
             { symbol: '\\textbf{}', display: '\\textbf{Bold}' },
             { symbol: '\\underline{}', display: '\\underline{Underline}' },
-            { symbol: '\\{\\}', display: '\\{\\}' },
-            { symbol: '\\left(\\right)', display: '\\left(\\right)' }
         ]
     }
 ];
 
 const CURSOR_PLACEMENT_RULES = [
-    { open: '\\left\\vert{', close: '}\\right\\vert' },
-    { open: '\\left\\lfloor{', close: '}\\right\\rfloor' },
-    { open: '\\left\\lceil{', close: '}\\right\\rceil' },
-    { open: '\\left(', close: '\\right)' },
+    { open: '\\vert{', close: '}\\vert' },
+    { open: '\\lfloor{', close: '}\\rfloor' },
+    { open: '\\lceil{', close: '}\\rceil' },
     { open: '{', close: '}{}' },
     { open: '{', close: '}' },
     { open: '(', close: ')' },
@@ -120,6 +131,7 @@ const lineNumbersCheckbox = document.getElementById('line-numbers');
 const algorithmAutoTextCheckbox = document.getElementById('algorithm-auto-format');
 const toolbar = document.getElementById('toolbar');
 const example = document.getElementById('latex-render');
+const delimiterRadios = document.getElementsByName('delimiter');
 let isEditing = false;
 
 // Initialize toolbar
@@ -136,12 +148,42 @@ function initializeToolbar() {
             buttonElement.className = 'tool-button';
             buttonElement.onclick = () => insertSymbol(button.symbol);
             buttonElement.textContent = button.display;
+            
+            // Add data attribute for tooltip
+            buttonElement.setAttribute('data-latex', button.symbol);
+            
             buttonGroup.appendChild(buttonElement);
         });
 
         fieldset.appendChild(legend);
         fieldset.appendChild(buttonGroup);
         toolbar.appendChild(fieldset);
+    });
+}
+
+// Update the renderButtons function to preserve the data-latex attribute
+function renderButtons() {
+    const buttons = document.querySelectorAll('.tool-button');
+    buttons.forEach(button => {
+        const latexContent = button.textContent.trim();
+        if (latexContent) {
+            try {
+                // Store the original content temporarily
+                const originalLatex = button.getAttribute('data-latex');
+                
+                // Render the KaTeX content
+                button.innerHTML = katex.renderToString(latexContent, {
+                    displayMode: false,
+                    throwOnError: false,
+                    fontSize: '1em'
+                });
+                
+                // Restore the data-latex attribute
+                button.setAttribute('data-latex', originalLatex);
+            } catch (e) {
+                console.error('KaTeX rendering error on button:', e);
+            }
+        }
     });
 }
 
@@ -163,6 +205,7 @@ function calculateNewIndentation(currentLine) {
     return indentation;
 }
 
+// Modify the formatText function
 function formatText(content) {
     let formattedContent = content;
 
@@ -179,24 +222,47 @@ function formatText(content) {
     });
 
     const lines = formattedContent.split('\n');
-    return lineNumbersCheckbox.checked
-        ? lines.map((line, index) => `$$\\text{${index + 1}.}\\ ${line}$$`).join('\n')
-        : lines.map(line => `$$${line}$$`).join('\n');
+    const selectedDelimiter = Array.from(delimiterRadios).find(radio => radio.checked).value;
+
+    return lines.map((line, index) => {
+        const lineNumber = lineNumbersCheckbox.checked ? `\\text{${index + 1}.}\\ ` : '';
+        
+        switch (selectedDelimiter) {
+            case 'gradescope':
+                return `$$${lineNumber}${line}$$`;
+            case 'single':
+                return `$${lineNumber}${line}$`;
+            case 'none':
+                return `${lineNumber}${line}`;
+            default:
+                return `$$${lineNumber}${line}$$`;
+        }
+    }).join('\n');
 }
 
+// Modify the renderKaTeX function
 function renderKaTeX(text, box) {
     try {
         const lines = text.split('\n');
+        const selectedDelimiter = Array.from(delimiterRadios).find(radio => radio.checked).value;
+        
         const processedLines = lines.map(line => {
-            if (line.startsWith('$$') && line.endsWith('$$')) {
-                const math = line.slice(2, -2);
+            let math = line;
+            if (selectedDelimiter === 'gradescope' && line.startsWith('$$') && line.endsWith('$$')) {
+                math = line.slice(2, -2);
+            } else if (selectedDelimiter === 'single' && line.startsWith('$') && line.endsWith('$')) {
+                math = line.slice(1, -1);
+            }
+            
+            try {
                 return `<div>${katex.renderToString(math, {
-                    displayMode: false,
+                    displayMode: false, // Always use inline mode for consistent styling
                     throwOnError: false,
                     fontSize: '1em',
                 })}</div>`;
+            } catch (e) {
+                return `<div>${line}</div>`;
             }
-            return `<div>${line}</div>`;
         });
         box.innerHTML = processedLines.join('');
     } catch (e) {
@@ -274,24 +340,6 @@ function copyToClipboard() {
     });
 }
 
-function renderButtons() {
-    const buttons = document.querySelectorAll('.tool-button');
-    buttons.forEach(button => {
-        const latexContent = button.textContent.trim();
-        if (latexContent) {
-            try {
-                button.innerHTML = katex.renderToString(latexContent, {
-                    displayMode: false,
-                    throwOnError: false,
-                    fontSize: '1em'
-                });
-            } catch (e) {
-                console.error('KaTeX rendering error on button:', e);
-            }
-        }
-    });
-}
-
 // Event Listeners
 rawInput.addEventListener('input', updateOutput);
 rawInput.addEventListener('keydown', (event) => {
@@ -359,6 +407,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	return A
 end algorithm`), example)
   });
+
+  delimiterRadios.forEach(radio => {
+    radio.addEventListener('change', updateOutput);
+});
 
 // Initialize the page
 window.onload = function () {
