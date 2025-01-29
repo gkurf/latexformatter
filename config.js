@@ -15,11 +15,12 @@ const TOOLBAR_SECTIONS = [
         name: 'Logic',
         buttons: [
             { symbol: '\\in', display: '\\in' },
-            { symbol: '\\subset', display: '\\subset' },
             { symbol: '\\exists', display: '\\exists' },
             { symbol: '\\forall', display: '\\forall' },
             { symbol: '\\implies', display: '\\implies' },
             { symbol: '\\equiv', display: '\\equiv' },
+            { symbol: '\\therefore', display: '\\therefore' },
+            { symbol: '\\square', display: '\\square' },
         ]
     },
     {
