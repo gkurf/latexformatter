@@ -92,6 +92,7 @@ const ALGORITHM_SUBSTITUTIONS = [
     { pattern: / then/g, replacement: '\\textbf{ then}' },
     { pattern: /end if/g, replacement: '\\textbf{end if}' },
     { pattern: /for /g, replacement: '\\textbf{for }' },
+    { pattern: /for each /g, replacement: '\\textbf{for each }' },
     { pattern: /end for/g, replacement: '\\textbf{end for}' },
     { pattern: / from /g, replacement: '\\text{ from }' },
     { pattern: / to /g, replacement: '\\text{ to }' },
