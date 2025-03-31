@@ -89,6 +89,7 @@ const ALGORITHM_SUBSTITUTIONS = [
     { pattern: /end algorithm/g, replacement: '\\textbf{end algorithm}' },
     { pattern: /end Algorithm/g, replacement: '\\textbf{end Algorithm}' },
     { pattern: /if /g, replacement: '\\textbf{if }' },
+    { pattern: /	else/g, replacement: '	\\textbf{else}' },
     { pattern: / then/g, replacement: '\\textbf{ then}' },
     { pattern: /end if/g, replacement: '\\textbf{end if}' },
     { pattern: /for each /g, replacement: '\\textbf{for each }' },
@@ -123,5 +124,6 @@ const INDENT_TRIGGERS = [
     " do",
     "algorithm ",
     "Algorithm ",
-    " then"
+    " then",
+    "else"
 ];
