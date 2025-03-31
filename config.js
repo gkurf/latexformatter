@@ -88,6 +88,7 @@ const ALGORITHM_SUBSTITUTIONS = [
     { pattern: /Algorithm (\w+)\(/g, replacement: '\\textbf{Algorithm } \\text{$1}(' },
     { pattern: /end algorithm/g, replacement: '\\textbf{end algorithm}' },
     { pattern: /end Algorithm/g, replacement: '\\textbf{end Algorithm}' },
+    { pattern: /else if /g, replacement: '\\textbf{else if }' },
     { pattern: /if /g, replacement: '\\textbf{if }' },
     { pattern: /	else/g, replacement: '	\\textbf{else}' },
     { pattern: / then/g, replacement: '\\textbf{ then}' },
